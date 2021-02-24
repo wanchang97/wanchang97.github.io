@@ -1,0 +1,433 @@
+/*
+ * Style sheets für die Website des
+ * Internationalen Master's-Studiengangs
+ * "Computational Science and Engineering" (CSE):
+ *      http://www.cse.tum.de/
+ */
+
+/*
+ * Einlesen der CSS-Angaben für Screen-Layout
+ * (wird von Netscape bis 4.x nicht eingelesen)
+ */
+@import url(BGSCE2.css);
+
+/*
+ * Allgemeines für body-Element:
+ * - Hintergrundfarbe bzw. -bild
+ * - Schriftart und -farbe:
+ */
+body {
+   background-color:#ffffff;
+   font-family:Helvetica,sans-serif;
+   color:#000000;
+   font-size:100%;
+}
+
+/* Schriftfarben Blau, Rot und Grau festlegen */
+
+.tumblau {color:#0077bb;}
+.faublau {color:#003366;}
+.rot {color:#cc3300;}
+.grau {color:#888888;}
+
+/* Überschriften sind immer fett, die wichtigeren
+   sind zudem TUM-blau und zentriert */
+
+h1,h2,h3
+{color:#0077bb;}
+
+h4,h5
+{color:#888888;}
+
+h1,h2
+{font-weight:bold;text-align:center;}
+
+h3,h4,h5,h6
+{font-weight:bold;text-align:left;}
+
+/* Schriftgrößen der Überschriften: */
+
+h1 {font-size:240%;margin-top:0.5em;}
+h2 {font-size:160%;margin-top:0.5em;}
+h3 {font-size:140%;line-height:130%;margin-top:0.4em;margin-bottom:0.4em;}
+h4 {font-size:120%;margin-top:0.4em;margin-bottom:0.3em;}
+h5 {font-size:105%; margin-bottom:0pt;}
+h6 {font-size:100%;}
+
+/*
+ *  Formate der grundlegenden Tags:
+ */
+
+p {text-align:left;line-height:122%;margin-top:0.2em;margin-bottom:1.0em;}
+
+li {text-align:left;line-height:122%;}
+
+strong {font-weight:bold;color:#003366;}
+
+li,dt {
+   margin-bottom:0.5em;
+}
+
+dd {
+   margin-bottom:1em;
+}
+
+li ul,ol,dl {
+   margin-top:0.5em;
+}
+
+dd ul,ol,dl {
+   margin-top:0.5em;
+}
+
+/* für Netscape4 Tabellen-Farben: */
+th {color:#0077bb;font-size:100%}
+td {color:#000000;font-size:100%}
+
+a:link {color:#003366;text-decoration:underline;}
+a:visited {color:#003366;text-decoration:underline;}
+a:hover {color:#003366;text-decoration:underline;}
+a:active {color:#003366;text-decoration:underline;}
+
+
+quote {
+   font-style:italic;
+}
+
+blockquote {
+   font-style:italic;
+}
+
+address {
+   font-size:80%;
+   font-style:italic;
+   text-align:right;
+   margin-right:10px;
+   margin-left:5px;
+}
+
+address.cse {
+   color:#003366;
+   margin-left:3ex;
+   font-size:110%;
+   font-weight:500;
+   line-height:110%;
+   font-style:normal;
+   text-align:left;
+}
+
+#footer address {
+   margin-right:1em;
+}
+
+#footer div {
+   margin-left:0.5em;
+   font-size:80%;
+   float:left;
+}
+
+img {
+   border:none;
+}
+
+/*
+ *  Style-Sheets für Tabellen aller Art
+ */
+
+caption {font-size:80%;color:#0077bb;}
+
+/* Tabellen für normale Info: */
+
+table.ce {
+   border-style:solid;
+   border-width:2px;
+   border-color:#888888;
+}
+
+table.ce th {
+   font-size:105%;
+   font-weight:bold;
+   color:#003366;
+   background-color:#ffffff;
+   border-color:#888888;
+   text-align:left;
+   border-style:solid;
+   border-width:1px;
+   padding:5px;
+}
+
+table.ce td {
+   font-size:100%;
+   background-color:#ffffff;
+   border-color:#888888;
+   text-align:left;
+   border-style:solid;
+   border-width:thin;
+   padding:3px;
+}
+
+table.ce td.pics {
+   font-size:100%;
+   background-color:#ffffff;
+   text-align:center;
+   border-style:none;
+   padding:3px;
+}
+
+
+/* Tabellen für reines Layout */
+
+table.layout {border-style:none;}
+
+table.layout td {
+   border-style:none;
+   padding:10px;
+   text-align:center;
+   vertical-align:top;
+}
+
+table.thumbnails {border-style:none;}
+
+table.thumnails td {
+   border-style:none;
+   padding:3px;
+   text-align:center;
+   vertical-align:top;
+}
+
+
+/* Tabellen für reines Layout */
+
+table.address {
+   border-style:none;
+}
+
+table.address td {
+   border-style:none;
+   color:#003366;
+   font-size:105%;
+   line-height:110%;
+   text-align:left;
+   padding-right:1em;
+   vertical-align:top;
+}
+
+
+/*
+ * (umflossene) Bilder mit Bildunterschriften
+ */
+
+/* Bild mit Bildunterschrift */
+
+div.capImage {
+   text-align:center;
+   font-size:80%;
+   color:#003366;
+   padding-bottom:1.5em;
+}
+
+div.capImage img {
+   display:block;
+   margin-left:auto;
+   margin-right:auto;
+   margin-top:5px;
+   margin-bottom:5px;
+}
+
+div.capImage table {
+   margin-left:auto;
+   margin-right:auto;
+   margin-top:5px;
+   margin-bottom:5px;
+}
+
+/* linksbündiges Bild mit Bildunterschrift,
+   wir vom Text umflossen */
+
+div.leftCapImage {
+   float:left;
+   text-align:center;
+   font-size:80%;
+   color:#003366;
+}
+
+div.leftCapImage img {
+   display:block;
+   margin-left:0px;
+   margin-top:0px;
+   margin-right:10px;
+   margin-bottom:5px;
+}
+
+/* rechtsbündiges Bild mit Bildunterschrift,
+   wir vom Text umflossen */
+
+div.rightCapImage {
+   float:right;
+   text-align:center;
+   font-size:80%;
+   color:#003366;
+}
+
+div.rightCapImage img {
+   display:block;
+   margin-left:10px;
+   margin-top:0px;
+   margin-right:0px;
+   margin-bottom:5px;
+}
+
+/*
+ * Link-Listen auf Unterseiten
+ */
+
+ul.links {
+   color:#888888;
+   margin-top:2em;
+   margin-left:4em;
+   list-style-image:url(http://www.bgce.de/pics/pointer_grey.gif);
+   font-weight:bold;
+   font-size:22px;
+   line-height:33px;
+}
+
+ul.courses {
+   margin-top:1em;
+   margin-left:25px;
+   list-style-image:url(http://www.bgce.de/pics/4dots.gif);
+}
+
+ul.courses li {
+   margin-top:1em;
+}
+
+ul.courses ul {
+   margin:0em;
+   padding-left:1em;
+   list-style:none;
+}
+
+p.courses {
+   margin:0.5em;
+   padding-left:1em;
+}
+
+/*
+ *  Style für die FAQ
+ */
+p.faq {
+}
+
+p.faq em {
+   display:block;
+   font-weight:bold;
+}
+
+/*
+ *  Styles für die Honours-Projekte
+ */
+
+p.author {
+   text-align:center;
+   color:#0077bb;
+   font-weight:bold;
+   font-size:120%;
+}
+
+p.comment {
+   font-style:italic;
+}
+
+/* Formatierungshilfen */
+
+.inline {display:inline;}
+
+.center {text-align:center;}
+
+.nextpage {text-align:right;font-size:22px;}
+
+
+/*
+ *  Spezielle Formatierungen für Seiten-Layout (Netscape4-kompatibel)
+ */
+
+/* Elemente des Seitenheaders: */
+
+#header h1 {
+   font-family:Helvetica,sans-serif;
+   color:#0077bb;
+   font-size:20px;
+   margin:5px;
+   padding:0px;
+}
+
+#header h2 {
+   font-family:Helvetica,sans-serif;
+   color:#000000;
+   font-size:16px;
+   margin-top:0px;
+}
+
+h1.hide {
+   font-size:240%;
+   text-align:left;
+   color:#888888;
+}
+
+#header img.left {
+   float:left;
+}
+#header img.right {
+   float:right;
+}
+
+/*
+ * Style-Angaben zum Ausdrucken der Webseiten:
+ * Navigationsmenues werden entfernt, Schriftgröße und druckbarer Bereich
+ * auf entsprechend vernünftige Werte gesetzt.
+ */
+@media print {
+
+   #header {
+      margin-bottom:2em;
+   }
+
+   #header h1 {
+      font-size: 12pt;
+   }
+   #header h2 {
+      font-size: 12pt;
+   }
+
+   div.topmenue {
+      display:none;
+   }
+
+   #footer{
+      display:none;
+      width:100%;
+   }
+
+   #content {
+      position:relative;
+   }
+
+   #content > br {
+      display:none;
+   }
+
+   #navigate {
+      display:none;
+   }
+
+   #textarea {
+      margin:0pt;
+      max-width:80em;
+      font-size:11pt;
+   }
+
+   #textarea p {
+      line-height:120%;
+   }
+
+}

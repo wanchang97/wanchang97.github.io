@@ -1,0 +1,356 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bavarian Graduate School of Computational Engineering</title>
+<link rel=stylesheet type="text/css" href="/BGSCE.css">
+</head>
+<script src=
+"http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<body>
+
+<div id="header">
+   <a href="http://www.tum.de/"
+   ><img class="left" src="pics/TUM_logo.gif" width=78 height=42 
+        alt="Technische Universität München - Logo" border=0
+    ></a>
+   <a href="http://www.uni-erlangen.de/"
+   ><img class="right" src="pics/FAU_logo.png" width=156 height=56 
+        alt="Friedrich-Alexander-Universität Erlangen-Nürnberg - Logo" border=0
+    ></a>
+   <h1>Bavarian Graduate School 
+       <span class="faublau">of Computational Engineering</span></h1>
+   <h2>Elite<span class="tumblau">netz</span>werk Bayern</h2>
+
+<hr class="hide">
+
+<div class="topmenue">
+<a href="https://www.bgce.de/">Bavarian Graduate School</a> &gt;
+<a href="https://www.bgce.de/curriculum/projects/">Honours Projects</a> &gt;
+Wanchang Zhang
+</div>
+
+</div>
+
+<div id="content"><br>
+   <div id="textarea">
+<h1 class="faublau"style="text-align:center">
+Modal-based Damage Localisation on Numerical Benchmark</h1>
+
+<p class="author"style="text-align:center">
+Wanchang ZHANG (<a href= "wanchang.zhang@tum.de">wanchang.zhang@tum.de</a>) from Computational Mechanics (TUM)<br>
+supervised by :<br> M.Sc. Antonios Kamariotis fron  <a href="https://www.bgu.tum.de/era/team/antonis-kamariotis"target="blank" > Engineering Risk Analysis Group</a> (TUM)<br> 
+Prof. Dr. Daniel Straub from <a href="https://www.bgu.tum.de/era/team/daniel-straub"target="blank" > Engineering Risk Analysis Group</a> (TUM)<br>
+and Prof. Dr. Eleni. Chatzi from<a href="https://chatzi.ibk.ethz.ch/people/prof-dr-eleni-chatzi.html"target="blank" > Dep. of Civil, Env. and Geomatic Eng.</a>  (ETH).
+<p>
+<center><h3> Abstract</h3></center>  
+<justify>
+
+  <p>
+    This project studies the different damage indices derived from the damage sensitive features(DSFs) (i.e.mode Shapes, Mode Shape Curvature, Modal Strain Energy and Flexibility Matrix) following 
+    the chapter 7 in the book Structural health monitoring <a href="bibliography_bib.html#farrar2012structural">Ref. 1</a> on the numerical benchmark model developed 
+    from Konstantinos and Chatzi documented in <a href="bibliography_bib.html#tatsis2019numerical">Ref. 2</a> and <a href="bibliography_bib.html#tatsis2018modal">Ref. 3</a>.
+    We can perform modal analysis and time history analysis on the simulator. Here we mainly take the modal analysis as a reference and check which damage indices are more informative based on the time history analysis. We studied the single damage case and the case where two damages are applied at the same time. Finally it shows that all three methods can work on theis settings in the study. The Flexibility matrix method shows less informative probably due to the fact that it needs the mass-normalised mode shapes.
+    This study does not involve model updating and it serves as a basic understanding of the structural health monitoring(SHM).
+  </p>
+</justify>
+<h2> 1. Introduction---Modal-based Damage Localisation</h2>
+  <p>
+    The aim of the project is to localise the damage based on the modal analysis method. So in the introduction part we will first introduce background of Damage Localisation in <a href="#Damage Localisation" >Section 1.1</a>, then the basic modal analysis method in <a href="#Modal based analysis">Section 1.2</a>.
+  </p>
+  <h3 id="Damage Localisation">
+    1.1 Damage Localisation
+  </h3>
+  <p>
+    The damage localisation is a subtask inside the structural health monitoring (or the so called Damage Identification). In the <a href="#Table 1">Table 1</a> the four levels of the Damage Identification are listed. Damage Detection is to answer the question whether there are damages in the structure. Then the localisation is to answer the question where the damage could be. 
+    The Classification and the quantification is to answer what type the damage is and how severe it is. Finally engineers need to make a decision or take actions based on the damage evaluations and the prediction of how long the structure would survive. 
+    In our study, we assume the type of the damage is the stiffness reduction caused by bending and we will go up to 2<sup>nd</sup> level Damage localisation and also some damage quantification in the 3<sup>rd</sup> level.
+  </p>
+
+<style>
+  #t02{
+    border: 1px solid black;  
+    border-collapse: collapse;
+    text-align: left;
+  }
+  #t02 tr{
+    border-top: 1px solid
+  }
+  #t02 td{
+    border-left: 1px solid }
+  </style>
+
+  </style>
+<center>
+    <table id="t02" >
+    <caption><b>Table 1:</b> Four levels of Damage Identification</caption>
+    <tr>
+      <td>1<sup>st</sup> level</td>
+      <td>Damage Detection</td>
+    </tr>  
+    <tr>
+      <td>2<sup>nd</sup> level</td>
+      <td>Damage Localisation</td>
+    </tr>  
+    <tr>
+      <td>3<sup>rd</sup> level</td>
+      <td>Damage Classification & Quantification</td>
+    </tr>  
+    <tr>
+      <td>4<sup>th</sup> level</td>
+      <td>Prediction</td>
+    </tr>  
+  </table>
+</center>
+  <p>
+    There are nine foundamental axioms of structural health monitoring presented in chapter 1 in the book Structural health monitoring <a href="bibliography_bib.html#farrar2012structural">Ref. 1</a>.
+    We list the first four of them as a first feeling of structural health monitoring.
+  <ol type="I">
+    <li>All materials have inherent flaws or defects.</li>
+    <li>Damage assessment requires a comparision between two system states.</li>
+    <li>Identifying the existence and location of damage can be done in an unsupervised learning mode, but identifying the type of damage present and the damage severity can generally only be done in a supervised learning mode.</li>
+    <li>Sensors cannot meassure damage. Feature extraction through signal processing and statistical classification are necessary to convert sensor data into damage information.</li>
+  </ol>
+  The second axiom reminds us that we usually need to compare the healthy state and the damaged state to assess a damage. The fourth axiom tells us that damage can not be meassured directly, but can only be derived from some sensor data that we can get.
+  e.g. here the sensor data we use is the acceleration data at specific degree of freedom in our finite element model.    
+  </p>
+
+
+
+
+  <h3 id="Modal based analysis">1.2 Modal based analysis</h3>
+  <p>
+  From the undamaged state to the damaged state, the mass, stiffness and the damping matrix may all change. However, we assume here first no damping is considered. And the dominated damage type will cause only the stiffness reducton. So the mass matrix remains the same. 
+  From the dynamic analysis, we can get the eigenvalue and eigenvector of the dynamic system. In modal analysis, eigenvalue(resonance frequency) and eigenvector(mode shapes) are basic modal properties. 
+  Based on the basic modal properties, mode shape curvature(MSC), modal strain energy and flexibility matrix can be further derived and defined in <a href="#Section 3">Section 3</a>. The idea of using modal analysis to identify the damage(to be exact the stiffness reduction) is summarised in the <a href="#Figure 1">Fig. 1</a>.
+  </p>
+  <center><table cellpadding="10px"><tr>
+    <td align="center"><img id="Figure 1" src="pics/ModalAnalysis.png" alt="ModalAnalysis" style="width:40em"></td></tr>
+    </table>
+    </center>
+    <center>
+      <align="center"> <div class="capImage"><b>Fig. 1:</b> The modal analysis  </div>
+      </center>
+
+<h2>2. Method</h2>
+<h3>2.1 Workflow</h3>
+<p>
+  From the simulator developed from Konstantinos and Chatzi documented 
+  in <a href="bibliography_bib.html#tatsis2019numerical">Ref. 2</a> and <a href="bibliography_bib.html#tatsis2018modal">Ref. 3</a>.
+  With the simulator we can generated the acceleration data or the mode shapes at the predefined degree of freedom of the FEM model. 
+  We can define the geometry, load case and the boundary conditions of the FEM model in this setted up simulator. For example, if we input the location and the severity of the damage. The pseudo-observation data of a sensor can be generated, this data can be the acceleration or mode shapes. Based on the observation data, 
+  the modal based method is applied to find the location of the damage we have defined before. The general work flow is summarized in the <a href = "#Figure 2"> Fig. 2</a>.
+</p>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img id = "Figure 2" src="pics/Workflow.png" alt="Workflow" style="width:40em"></td></tr>
+  </table>
+  </center>
+  <center>
+    <align="center"> <div class="capImage"><b>Fig. 2:</b> The workflow of the whole project.  </div>
+    </center>
+<h3>2.2 Simulator settings</h3>
+<p>Below we repeat the simulator settings introduced in <a href="bibliography_bib.html#tatsis2019numerical">Ref. 2</a> and <a href="bibliography_bib.html#tatsis2018modal">Ref. 3</a>.
+  in <a href = "#Geometry">Geometry</a>, <a href="#FEM">Finite Element</a>, <a href="#Material">Material assumption</a>, <a href="#BCs">Boundary Conditions</a>, <a href="#Damage Settings">damage settings</a> and <a href="#Sensor">sensor locations</a> respectively.
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img id="Fig 3" src="pics/SimulatorIntro.png" alt="SimulatorIntroduction" style="width:40em"></td></tr>
+  </table>
+</center>
+<center>
+  <align="center"> <div class="capImage"><b>Fig. 3:</b> The introduction to the numerical benchmark model  </div>
+</center>
+<h4 id = "Geometry">2.2.1 Geometry </h4>
+
+<p>The length, heights and the weights of the benchmark model in <a href="#Fig 3">Fig. 3</a> are defined as: L<sub>1</sub> = 12; L<sub>2</sub> = 13; h = 0.6 ; w = 0.1</p>
+<h4 id = "FEM">2.2.2 Finite element choice</h4>
+<p> 200x6 isoparametric quadrilateral elements for plane-stress problem are used in the FEM model with dx = 25/200, dy=0.6/6.</p>
+<h4 id = "Material">2.2.3 Material assumption</h4>
+<p>linear elastic material with E = 30e<sup>10</sup>, poisson ratio &nu; = 0.3, material density &rho;  = 7800.</p>
+<h4 id = "BCs">2.2.4 Boundary condition</h4>
+Here only the distributed loads modelled as independent Gaussian white noise F<sub>4</sub>(x) is applied. The support are the same with the settings in the simulator.
+<h4 id = "Damage Settings">2.2.5 Damage settings</h4>
+The damage are denoted by the black boxes at 1/4,1/2 and 3/4 of the bridge. At each position there are different numbers of affected elements around this position. For example Damaged setting 1, 4 and 8 have only one damaged element. 
+Accordingly damage settting 7, 11 and 12 have ten damaged elements respectively. 
+To make the results more obvious we study the damage case where ten elements are involved. For each damage settings, there are also three different predefined damage severity, i.e. 20%,50%,70% of the stiffness reduction. 
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage location.png" alt="Benchmark model" style="width:40em"></td></tr>
+  </table>
+</center>
+<center>
+    <align="center"> <div class="capImage"><b>Fig. 4:</b> The damage location  </div>
+</center>
+<h4 id = "Sensor">2.2.6 Sensor locations</h4>
+<p>In the original settings, 60 sensors is predefined in the simulator already shown by the black dot in <a href="#Fig 3">Fig. 3</a>. Each sensor can return the value in x, y direction( either modes or accelerations). We define the Upper-,Middle-,Lower-sensor as the group of sensors whose y coordinate is 0.5, 0.3 and 0.1.
+  Since only values in y directions are of interest for the bending deformation. Finnaly we choose Uppersensor_y and Uppersensor_y_less 10 shown by <a href="#Fig 5">Fig. 5</a> to study further. The distances along x direction between the two neighborhood sensors &delta;x = 10dx(20dx). </p>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img id="Fig 5" src="pics/Sensor location.png" alt="Sensor location" style="width:40em"></td></tr>
+  </table>
+</center>
+<center>
+    <align="center"> <div class="capImage"><b>Fig. 5:</b> The sensor location of the numerical benchmark model  </div>
+</center>
+
+  
+<h2 id="Section 3">3. Damage Assessment</h2>
+<h3>3.1 Damage Index Overview</h3>
+<p> To define a damage index, we need to find the damage sensitive features(DSF). And we already know that damage assessment is between two states, we need to make an approriate <b>mathematical operations </b>to see the difference between the healthy and unhealthy states:</p>
+<ul><b>#Subtraction: DamageIndex_sub = DSF<sub>damaged</sub>-DSF<sub>undamaged</sub></b></ul> 
+<ol>DamageIndex_absdiff = abs(DSF<sub>damaged</sub>-DSF<sub>undamaged</sub>) </ol>
+<ol>DamageIndex_absabsdiff = abs(abs(DSF<sub>damaged</sub>)-abs(DSF<sub>undamaged</sub>))</ol>
+<ol>DamageIndex_abssqudiff = abs((DSF<sub>damaged</sub>)<sup>2</sup>-(DSF<sub>undamaged</sub>)<sup>2</sup>)</ol>
+
+<ul><b>#Division: DamageIndex_div = DSF<sub>damaged</sub>/DSF<sub>undamaged</sub></b></ul>
+<p>The following is to try different damage sensitive features(DSF) to create the damage index. We will try to introduce the method based on the example, where the configuration is: damage 7 with sensors along the Uppersensor_y and Uppersensor_y_less. </p>
+<h3>3.2 Mode Shape Curvature</h3>
+<p>Mode Shape Curvature is the 2<sup>nd</sup> derivative of mode shapes. In the FEM model we can use the central difference scheme to get the 2<sup>nd</sup> order derivative of the mode shapes.</p>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img id="Fig 5" src="pics/modeshapecurvatureformular.PNG" alt="MOdeShapeCurvature" style="width:40em"></td></tr>
+  </table>
+</center>
+
+
+<h3>3.3 Modal Strain Energy</h3>
+
+<p>The strain energy stored in the spring when the structures deform in one of its mode shapes is: <span class="math display">\[U = \frac{1}{2}k{\Delta x}^2\]</span> where <span class="math inline">\(\Delta x\)</span> is the change of length of the springs from its undeformed state. The strain energy U of a Euler-Bernoulli beam of length L is given by <span class="math inline">\(U = \frac{1}{2}\int_{0}^{l}EI(\frac{\partial^2 w}{\partial x^2})^2\,dx\)</span>, where <span class="math inline">\(w\)</span> is the transverse displacement of the beam;<span class="math inline">\(x\)</span> is the coordinate along the length of the beam. For a particular mode shape <span class="math inline">\({\phi}_i\)</span>, the strain energy associated with the deformation in that mode shape pattern is <span class="math display">\[U_i = \frac{1}{2}\int_{0}^{l}EI(\frac{\partial^2 {\phi}_i}{\partial x^2})^2\,dx\]</span> Since the beam is subdivided into N divisions as shown in the figure, then the energy associated with each subregion j due to the ith mode is given by <span class="math display">\[\begin{split}
+  U_{ij} &amp;  = \frac{1}{2}\int_{a_j}^{a_{j+1}}(EI)_j(\frac{\partial^2 {\phi}_i}{\partial x^2})^2\,dx\\ 
+  &amp; = \frac{1}{2}(EI)_j\int_{a_j}^{a_{j+1}}(\frac{\partial^2 {\phi}_i}{\partial x^2})^2\,dx 
+  \end{split}\]</span></p>
+  <p>where the fractional energy is defined as <span class="math inline">\(F_{ij} = \frac{U_{ij}}{U_i}\)</span>.If it is assumed that the damage is primarily located at a single subregion then the fractional energy will remain relatively constant in the undamaged subregions and in the damaged region k</p>
+  <p>Similar quantities can be defined for a damaged structure <span class="math inline">\(F_{ijd} = \frac{U_{ijd}}{U_{id}}, \sum_{j=0}^{j=N} F_{ij}=\sum_{j=0}^{j=N} F_{ijd} = 1\)</span> If it is assumed that the damage is primarily located at a single subregion then the fractional energy will remain relatively constant in the undamaged subregions and in the damaged region k.<span class="math display">\[F_{ikd}=F_{ik}\]</span> <span class="math display">\[\frac{U_{ikd}}{U_{id}}=\frac{U_{ik}}{U_i}\frac{(EI)_k}{((EI)_d)_k}=\frac{\frac{\int_{a_k}^{a_{k+1}}(\frac{\partial^2 \phi_{i,d}}{\partial x^2})^2\,dx}{\int_{0}^{l}(\frac{\partial^2 \phi_{i,d}}{\partial x^2})^2\,dx
+  }}{\frac{\int_{a_k}^{a_{k+1}}(\frac{\partial^2 \phi_{i}}{\partial x^2})^2\,dx}{\int_{0}^{l}(\frac{\partial^2 \phi_{i}}{\partial x^2})^2\,dx}}\equiv \frac{f_{ikd}}{f_{ik}}\]</span> damage index(DI) can be defined as the sum of all order: <span class="math display">\[\beta_k = \frac{\sum_{i=1}^{i=m} f_{ikd}}{\sum_{i=1}^{i=m}f_{ik}}\]</span> or defined as the sum of the first two orders: <span class="math display">\[\beta_2k = \frac{\sum_{i=1}^{i=2} f_{ikd}}{\sum_{i=1}^{i=2}f_{ik}}\]</span></p>
+<h3>3.4 Flexibility Matrix</h3>
+
+<p><span class="math display">\[[f]= [K][y]\]</span> <span class="math display">\[[y]= [K]^{-1}[f]=[G][f]\]</span> where <span class="math inline">\([f]\)</span> is the vector of static loads applied to the structure and <span class="math inline">\([y]\)</span> is a vector corresponding to the deformation. For an undamaged structure with m mass-normalised modal vectors identified from experimental data obtained at n degrees of freedom, the flexibility matrix <span class="math inline">\([G]_{n\times n}\)</span> can be derived from the modal data as follows <span class="citation" data-cites="pandey1994damage"></span>: <span class="math display">\[\label{eqn:G}
+  [G]\approx [\Phi][\Omega][\Omega]^T\approx \sum_{i=1}^{i=m}\frac{1}{(\omega_i)^2}[\phi]_i[\phi]_i^T\]</span> where the mode shape matrix: <span class="math display">\([\Phi] = [\phi]_1,[\phi]_2,...,[\phi]_m\)</br></span> the <span class="math inline">\(i^{th}\)</span> mass normalised mode shape: <span class="math inline">\([\phi]_i\)</span><br />
+the modal stiffness matrix: <span class="math inline">\([\Omega]=diag(\omega_i^2)\)</span><br />
+the <span class="math inline">\(i^{th}\)</span> modal frequency: <span class="math inline">\(\omega_i\)</span><br />
+Inspired by equation (<a href="#eqn:G" data-reference-type="ref" data-reference="eqn:G">[G]</a>) for each order we define: <span class="math display">\[\label{eqn:g}
+  [g] \approx \frac{1}{(\omega_i)^2}[\phi]_i[\phi]_i^T\]</span> Then the damage index(DI) can be defined as Fig. <a href="#fig:Flexibility Matrix damage index illustration" data-reference-type="ref" data-reference="fig:Flexibility Matrix damage index illustration"> Flexibility Matrix Damage Index illustration</a>.</p>
+<center>
+<figure>
+<img src="pics\Flexibility Matrix.PNG" id="fig:Flexibility Matrix damage index illustration" style="width:50.0%" alt="Flexibility Matrix damage index illustration" /><figcaption aria-hidden="true">Flexibility Matrix damage index illustration</figcaption>
+</figure>
+</center>
+<p>We can obtain first m modes, then we have a <span class="math inline">\(n\times n\)</span> flexibility matrix for each order <span class="math inline">\([g]\)</span>. n is the number of degree of freedoms we can have, i.e. the number of sensors we setted up. Based on the flexibility matrix for each order <span class="math inline">\([g]\)</span>, a vector <span class="math inline">\(\vec{v}_{n \times 1}\)</span> for each order is defined to sum up all the columns of <span class="math inline">\([g]\)</span>. Same as the idea to compute the mode shape curvature, we calculate the v curvature <span class="math inline">\(\vec{vc}_{n \times 1}\)</span> and try to define the damage index of the <span class="math inline">\(\vec{v}\)</span> curvature <span class="math inline">\(\vec{vc}\)</span> through</p>
+<p><span class="math display">\[FMDI_{absabsdiff} =||\vec{vc}_{da}|-|\vec{vc}_{un}||\]</span> <span class="math display">\[FMDI_{abssqudiff} =|(\vec{vc}_{da})^2-(\vec{vc}_{un})^2|\]</span></p>
+
+
+
+
+
+<h2>4. Results and discussions</h2>
+<h3>4.1 One-damage-case_Damage 7</h3>
+<h4>4.1.1 Damage 7 frequency</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage7/Frequency.PNG" alt="damage7Frequency" style="width:40em"></td></tr>
+  </table>
+</center>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage7/Frequency_plot.PNG" alt="damage7Frequency_plot" style="width:40em"></td></tr>
+  </table>
+</center>
+<h4>4.1.2 Damage 7 modes</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage7/modes.PNG" alt="damage7modes" style="width:40em"></td></tr>
+  </table>
+</center>
+<h4>4.1.3 Damage 7 Mode Shape Curvature</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage7/MSC.PNG" alt="damage7MSC" style="width:40em"></td></tr>
+  </table>
+</center>
+<h4>4.1.4 Damage 7 Modal Strain Energy</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage7/MSE.PNG" alt="damage7MSE" style="width:40em"></td></tr>
+  </table>
+</center>
+<h4>4.1.5 Damage 7 Flexibility Matrix</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage7/FM.PNG" alt="damage7FM" style="width:40em"></td></tr>
+  </table>
+</center>
+<h3>4.2 Two-damages-case_Damage 7 and 11 at the same time (The case is snamed as damage13) with 5% noise when obtaining the SSI data</h3>
+<h4>4.2.1 Damage 13 Mode Shape Curvature</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage13/MSC.PNG" alt="damage13MSC" style="width:40em"></td></tr>
+  </table>
+</center>
+<h4>4.2.2 Damage 13 Modal strain Energy</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage13/MSE.PNG" alt="damage13MSE" style="width:40em"></td></tr>
+  </table>
+</center>
+<h4>4.2.3 Damage 13 Flexibility Matrix</h4>
+<center><table cellpadding="10px"><tr>
+  <td align="center"><img src="pics/damage13/FM.PNG" alt="damage13FM" style="width:40em"></td></tr>
+  </table>
+</center>
+<p style="text-align:justify">
+<h3>Discussion</h3>
+The Damage index based on frequency can give use the information about the damage existence and damage relative severity. The modes is easily affected by the noise, 
+here mainly the noise from the stochastic subspace identification SSI process <a href="bibliography_bib.html#peeters1999reference">Ref. 4</a>. In the example, we can get first six order of modes and it is ordered from the smallest frequency to the largest frequency. The higher order modes have more noise. So when we only sum up the first two order, the noise from higher order are avoided, and the plot can give us some damage information.
+If we use the damage index from the mode shape curvature, the sum of first two order is also more informative than um of all order. The same case applies on the damage index based on Modal strain energy and flexibility matrix. 
+</p>
+The detailed damage index plot for each order is in the pdf file here <center><embed src="HonorsProjectPresentation - BGCE.pdf" width="600" height="500" alt="pdf" pluginspage="http://www.adobe.com/products/acrobat/readstep2.html"></center>
+<h3>Future work</h3>
+The damage index based on Flexibility matrix needs the mass-normalised mode shapes. However here we only use the SSI2 with the scaling factor = max(|vector|). If we can use the mass-normalised mode shapes, the damage index based on Flexibility Matrix would be more informative.
+Then the higher order can be also informative. Since in the expression of [G] has the frequency in the denominator, thus the higher order modes noise can be reduced in this way.
+
+
+<h2>References</h2>
+<table>
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a id = "farrar2012structural" name="farrar2012structural">1</a>]
+</td>
+<td class="bibtexitem">
+Farrar, Charles R and Worden, Keith<br>
+Structural health monitoring: a machine learning perspective<br>
+ <em>John Wiley \& Sons</em>, 2012.
+[&nbsp;<a href="bibliography_bib.html#farrar2012structural">bib</a>&nbsp;]
+</td>
+</tr>
+
+
+<tr valign="top">
+<td align="right" class="bibtexnumber">
+[<a id = "tatsis2019numerical" name="tatsis2019numerical">2</a>]
+</td>
+<td class="bibtexitem">
+Tatsis, Konstantinos and Chatzi, Eleni<br>
+A numerical benchmark for system identification under operational and environmental variability<br>
+ <em>8th International Operational Modal Analysis Conference </em>, 2019.
+[&nbsp;<a href="bibliography_bib.html#tatsis2019numerical">bib</a>&nbsp;]
+</td>
+</tr>
+
+<tr valign="top">
+  <td align="right" class="bibtexnumber">
+  [<a id = "tatsis2018modal" name="tatsis2018modal">3</a>]
+  </td>
+  <td class="bibtexitem">
+  Tatsis, Konstantinos and Ntertimanis, Vasilis K and Chatzi, Eleni<br>
+  Modal-based damage localization on wind turbine blades under environmental variability<br>
+ <em>9th European Workshop on Structural Health Monitoring : Online Proceedings</em>, 2018.
+  [&nbsp;<a href="bibliography_bib.html#tatsis2018modal">bib</a>&nbsp;]
+  </td>
+</tr>
+
+<tr valign="top">
+  <td align="right" class="bibtexnumber">
+  [<a id = "peeters1999reference" name="peeters1999reference">4</a>]
+  </td>
+  <td class="bibtexitem">
+  Peeters, Bart and De Roeck, Guido<br>
+  Reference-based stochastic subspace identification for output-only modal analysis<br>
+ <em>Mechanical systems and signal processing : Elsevier</em>, 1999.
+  [&nbsp;<a href="bibliography_bib.html#peeters1999reference">bib</a>&nbsp;]
+  </td>
+</tr>
+
+</BODY>
+
+</HTML>
+
